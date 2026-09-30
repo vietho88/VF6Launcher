@@ -7,11 +7,16 @@ import androidx.car.app.CarContext;
 import androidx.car.app.CarToast;
 import androidx.car.app.Screen;
 import androidx.car.app.model.Action;
+import androidx.car.app.model.CarIcon;
+import androidx.car.app.model.GridItem;
+import androidx.car.app.model.GridTemplate;
 import androidx.car.app.model.ItemList;
 import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
+import androidx.core.graphics.drawable.IconCompat;
 
+import com.vf6.launcher.R;
 import com.vf6.launcher.bridge.CommandReceiver;
 import com.vf6.launcher.session.SessionController;
 
@@ -32,29 +37,37 @@ public final class DrivingScreen extends Screen {
 
         ItemList.Builder items = new ItemList.Builder();
 
-        items.addItem(new Row.Builder()
-                .setTitle("Điều hướng Android Auto")
-                .addText(destination)
+        items.addItem(new GridItem.Builder()
+                .setTitle("Điều hướng")
+                .setText(destination)
+                .setImage(icon(R.drawable.ic_car_navigation), GridItem.IMAGE_TYPE_ICON)
                 .setOnClickListener(() -> startNavigation(destination))
                 .build());
 
-        items.addItem(new Row.Builder()
+        items.addItem(new GridItem.Builder()
                 .setTitle("Phiên ứng dụng")
-                .addText("Đã chọn trên điện thoại: " + configuredApps())
+                .setText(configuredApps())
+                .setImage(icon(R.drawable.ic_app), GridItem.IMAGE_TYPE_ICON)
                 .setOnClickListener(() -> getScreenManager().push(new ControlsScreen(false)))
                 .build());
 
-        items.addItem(new Row.Builder()
-                .setTitle("Điều khiển media")
-                .addText(lastStatus)
+        items.addItem(new GridItem.Builder()
+                .setTitle("Media")
+                .setText(lastStatus)
+                .setImage(icon(R.drawable.ic_car_media), GridItem.IMAGE_TYPE_ICON)
                 .setOnClickListener(() -> getScreenManager().push(new ControlsScreen(true)))
                 .build());
 
-        return new ListTemplate.Builder()
-                .setTitle("VF6 Launcher · Driving")
+        return new GridTemplate.Builder()
+                .setTitle("VF6 Launcher")
                 .setHeaderAction(Action.APP_ICON)
                 .setSingleList(items.build())
                 .build();
+    }
+
+    private CarIcon icon(int resourceId) {
+        return new CarIcon.Builder(
+                IconCompat.createWithResource(getCarContext(), resourceId)).build();
     }
 
     private String configuredApps() {

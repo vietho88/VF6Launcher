@@ -1,5 +1,6 @@
-VF6 Launcher v0.3 source updated for one APK.
-- Android Auto template service and parked split interface are in :app.
+VF6 Launcher v0.4 source updated for a dashboard-style layout.
+- Android Auto driving grid and parked split launcher are in :app.
+- Parked launcher has a sidebar for switching the selected pane.
 - Driving destination is configured in the main phone activity.
 - GitHub Actions builds app-debug.apk only.
 - Build and on-car behavior still require validation.

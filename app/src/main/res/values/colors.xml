@@ -5,4 +5,9 @@
     <color name="muted">#A5ABB5</color>
     <color name="accent">#5B8CFF</color>
     <color name="danger">#FF6B6B</color>
+    <color name="car_bg">#0C1118</color>
+    <color name="car_sidebar">#151B25</color>
+    <color name="car_bar">#CC19222E</color>
+    <color name="car_card">#263447</color>
+    <color name="car_accent">#E77543</color>
 </resources>

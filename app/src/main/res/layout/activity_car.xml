@@ -1,92 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
-
-    <SurfaceView
-        android:id="@+id/display_surface"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    android:background="@color/car_bg"
+    android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:orientation="horizontal"
+        android:layout_width="92dp"
+        android:layout_height="match_parent"
+        android:background="@color/car_sidebar"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="VF6"
+            android:textColor="@color/text"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/car_app_shortcuts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <Button
+            android:id="@+id/car_all_apps"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/car_selected_bg"
+            android:contentDescription="Chọn ứng dụng"
+            android:text="Ứng dụng"
+            android:textAllCaps="false"
+            android:textColor="@color/text"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
         android:padding="8dp">
 
-        <Button
-            android:id="@+id/car_left_app"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:background="@drawable/car_bar_bg"
+            android:orientation="horizontal"
+            android:padding="3dp">
+
+            <Button
+                android:id="@+id/car_left_app"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:text="Trái ▼"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/car_right_app"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:text="Phải ▼"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/car_mirror_frame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
             android:layout_weight="1"
-            android:maxLines="1"
-            android:text="Trái ▼" />
+            android:background="@drawable/car_card_bg"
+            android:padding="4dp">
 
-        <Button
-            android:id="@+id/car_right_app"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:maxLines="1"
-            android:text="Phải ▼" />
+            <SurfaceView
+                android:id="@+id/display_surface"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <View
+                android:id="@+id/car_split_divider"
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@color/car_accent" />
+
+            <TextView
+                android:id="@+id/car_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/car_bar_bg"
+                android:paddingLeft="10dp"
+                android:paddingTop="4dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="4dp"
+                android:text="VF6 Launcher đang kết nối..."
+                android:textColor="@color/text"
+                android:textSize="12sp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/car_bar_bg"
+            android:orientation="horizontal"
+            android:padding="3dp">
+
+            <Button
+                android:id="@+id/car_back"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="←"
+                android:textAllCaps="false"
+                android:textColor="@color/text" />
+
+            <Button
+                android:id="@+id/car_home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="Home"
+                android:textAllCaps="false"
+                android:textColor="@color/text" />
+
+            <Button
+                android:id="@+id/car_ratio"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="50/50"
+                android:textAllCaps="false"
+                android:textColor="@color/text" />
+
+            <Button
+                android:id="@+id/car_swap"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="Đổi bên"
+                android:textAllCaps="false"
+                android:textColor="@color/text" />
+
+            <Button
+                android:id="@+id/car_stop"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="Dừng"
+                android:textAllCaps="false"
+                android:textColor="@color/text" />
+        </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/car_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:layout_marginTop="62dp"
-        android:background="#99000000"
-        android:paddingLeft="12dp"
-        android:paddingTop="6dp"
-        android:paddingRight="12dp"
-        android:paddingBottom="6dp"
-        android:text="VF6 Launcher đang kết nối..."
-        android:textColor="#FFFFFF"
-        android:textSize="13sp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="10dp"
-        android:background="#BB111318"
-        android:orientation="horizontal"
-        android:padding="4dp">
-
-        <Button
-            android:id="@+id/car_back"
-            android:layout_width="64dp"
-            android:layout_height="48dp"
-            android:text="←" />
-
-        <Button
-            android:id="@+id/car_home"
-            android:layout_width="74dp"
-            android:layout_height="48dp"
-            android:text="Home" />
-
-        <Button
-            android:id="@+id/car_ratio"
-            android:layout_width="80dp"
-            android:layout_height="48dp"
-            android:text="50/50" />
-
-        <Button
-            android:id="@+id/car_swap"
-            android:layout_width="74dp"
-            android:layout_height="48dp"
-            android:text="Swap" />
-
-        <Button
-            android:id="@+id/car_stop"
-            android:layout_width="74dp"
-            android:layout_height="48dp"
-            android:text="Stop" />
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

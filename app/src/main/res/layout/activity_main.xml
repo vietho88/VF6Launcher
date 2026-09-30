@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="VF6 Launcher"
+            android:textColor="@color/text"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="2 app độc lập • virtual display • không MediaProjection"
+            android:textColor="@color/muted"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@color/panel"
+            android:padding="14dp"
+            android:text="Đang kiểm tra Shizuku…"
+            android:textColor="@color/text" />
+
+        <Button
+            android:id="@+id/grant_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Cấp quyền Shizuku" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="App trái"
+            android:textColor="@color/text"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/app_left"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/panel" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="App phải"
+            android:textColor="@color/text"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/app_right"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/panel" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Tỷ lệ"
+            android:textColor="@color/text"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/layout_ratio"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/panel" />
+
+        <CheckBox
+            android:id="@+id/use_720p"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:checked="true"
+            android:text="Ưu tiên mượt: 1280 × 720 / 220 dpi"
+            android:textColor="@color/text" />
+
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:text="START VF6" />
+
+        <Button
+            android:id="@+id/stop_button"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:text="STOP / DỌN SESSION" />
+
+        <TextView
+            android:id="@+id/log_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@color/panel"
+            android:padding="12dp"
+            android:textColor="@color/muted"
+            android:textIsSelectable="true"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+</ScrollView>

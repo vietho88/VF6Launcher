@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="VF6 Launcher Driving"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Driving companion dùng Android for Cars template. App tùy ý/full-touch vẫn thuộc chế độ parked."
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/nav_query"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:hint="Điểm đến nhanh, ví dụ: Cầu Rồng Đà Nẵng"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/save_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lưu điểm đến Driving" />
+
+        <Button
+            android:id="@+id/test_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="START / RECONNECT SESSION" />
+
+        <Button
+            android:id="@+id/test_ratio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ĐỔI TỶ LỆ 50/50 → 60/40 → 70/30" />
+
+        <Button
+            android:id="@+id/test_swap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SWAP LEFT / RIGHT" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/test_prev"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="⏮" />
+
+            <Button
+                android:id="@+id/test_play"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="▶/Ⅱ" />
+
+            <Button
+                android:id="@+id/test_next"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="⏭" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/test_stop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="STOP SESSION" />
+
+    </LinearLayout>
+</ScrollView>

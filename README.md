@@ -1,45 +1,21 @@
-# VF6 Launcher v0.2
+# VF6 Launcher v0.3
 
-Experimental Android Auto launcher project for Samsung / VF6 testing.
+Experimental single-APK Android Auto launcher for Samsung / VF6 testing.
 
-## Two modes
+## One APK, two car interfaces
 
-### 1) Parked split launcher (`app-debug.apk`)
-- Shizuku-powered virtual display.
-- Two independent Android apps on one secondary display.
-- Left/right app picker on the car screen.
-- 50/50, 60/40, 70/30, Swap.
-- Direct touch forwarded to the virtual display.
-- No MediaProjection bitmap pipeline.
+- **Driving:** `VF6 Launcher` uses an Android for Cars list template for a saved navigation destination, session controls, and media keys. It is part of `app-debug.apk`; a second APK is no longer needed.
+- **Parked:** The same APK contains the split-screen `CarActivity`, which mirrors a virtual display and forwards touch to two selected phone apps. Android Auto decides when this parked interface is available.
 
-### 2) Driving companion (`driving-debug.apk`)
-Built with AndroidX Car App Library 1.7.0.
-- Android Auto template UI intended for driving-safe controls.
-- Start/reconnect the configured virtual session.
-- Cycle ratio and Swap.
-- Global Previous / Play-Pause / Next media controls.
-- Launch Android Auto navigation to a destination configured on the phone, using `CarContext.ACTION_NAVIGATE`.
-- Stop the virtual session.
+The driving template does not show arbitrary app surfaces. Android Auto does not offer a general launcher category for third-party apps, so availability of this sideloaded prototype in the car launcher depends on the Android Auto host and device. The service currently declares the IoT category for testing; its functionality is not an IoT app and this declaration should not be treated as suitable for Play distribution.
 
-The driving companion intentionally does **not** bypass Android Auto's driver-distraction restrictions or embed arbitrary video/social-app surfaces while the car is moving. Full arbitrary-app rendering/touch remains the parked mode.
+The driving screen's Start action can start the configured apps on a phone-side virtual display, but it does not make those surfaces visible through the driving template.
 
-## Install
+## Install and use
 
-Build both APKs in the same GitHub Actions run so the signature-protected control permission matches.
+1. Build and install `app-debug.apk`. If an older separate `VF6 Launcher Driving` APK is installed, uninstall it to avoid two entries.
+2. Start Shizuku and grant VF6 Launcher permission on the phone.
+3. Open VF6 Launcher on the phone. Select the two apps and split ratio, then save a quick navigation destination if desired.
+4. Open VF6 Launcher in Android Auto. Use the driving template while moving. When parked and supported by the host, use the split display interface.
 
-1. Install `app-debug.apk` (main). On devices where Android Auto filters sideloaded apps, use the same installation method that works for your Fermata setup (for example KingInstaller).
-2. Install `driving-debug.apk` from the **same Actions run**.
-3. Start Shizuku and grant VF6 Launcher permission.
-4. Open VF6 Launcher on the phone, select left/right apps, resolution and ratio, then START VF6.
-5. Open `VF6 Launcher Driving` on the phone once and save an optional quick-navigation destination.
-6. In Android Auto, open `VF6 Launcher Driving` for the template-based driving controls.
-
-## Build
-
-GitHub Actions builds:
-- `VF6Launcher-v0.2-main-debug-apk`
-- `VF6Launcher-v0.2-driving-debug-apk`
-
-## Notes
-
-This is experimental and not validated on every Samsung / Android Auto / VF6 firmware combination. Hidden SurfaceControl/WindowManager APIs, overlay displays and task resize behavior are OEM-dependent.
+The project has not been validated on every Samsung / Android Auto / VF6 firmware combination. Hidden SurfaceControl/WindowManager APIs, overlay displays and task resizing are device dependent. Test with Android Auto Desktop Head Unit and on the target vehicle before relying on the workflow.

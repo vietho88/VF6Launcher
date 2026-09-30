@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class MainActivity extends Activity {
     private TextView status, logView;
     private Spinner leftSpinner, rightSpinner, ratioSpinner;
     private CheckBox use720p;
+    private EditText navQuery;
 
     private final Shizuku.OnRequestPermissionResultListener permissionListener = (requestCode, grantResult) -> {
         if (requestCode == ShizukuBridge.REQUEST_CODE) refreshStatus();
@@ -53,9 +55,13 @@ public class MainActivity extends Activity {
         rightSpinner = findViewById(R.id.app_right);
         ratioSpinner = findViewById(R.id.layout_ratio);
         use720p = findViewById(R.id.use_720p);
+        navQuery = findViewById(R.id.nav_query);
+        navQuery.setText(getSharedPreferences("driving", MODE_PRIVATE)
+                .getString("nav_query", "Cầu Rồng Đà Nẵng"));
         Button grant = findViewById(R.id.grant_button);
         Button start = findViewById(R.id.start_button);
         Button stop = findViewById(R.id.stop_button);
+        Button saveNav = findViewById(R.id.save_nav_button);
 
         ratioSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 new String[]{"50 / 50", "60 / 40", "70 / 30"}));
@@ -63,8 +69,13 @@ public class MainActivity extends Activity {
         restoreSelections();
 
         grant.setOnClickListener(v -> ShizukuBridge.requestPermission());
+        saveNav.setOnClickListener(v -> {
+            saveNavigation();
+            Toast.makeText(this, "Đã lưu điểm đến", Toast.LENGTH_SHORT).show();
+        });
         start.setOnClickListener(v -> {
             saveSelections();
+            saveNavigation();
             append("START…");
             ShizukuBridge.withService(this, new ShizukuBridge.Callback() {
                 @Override public void onReady(com.vf6.launcher.bridge.IVF6PrivilegedService service) {
@@ -150,6 +161,12 @@ public class MainActivity extends Activity {
                 .putInt(SessionController.KEY_W, low ? 1280 : 1920)
                 .putInt(SessionController.KEY_H, low ? 720 : 1080)
                 .putInt(SessionController.KEY_DPI, low ? 220 : 240)
+                .apply();
+    }
+
+    private void saveNavigation() {
+        getSharedPreferences("driving", MODE_PRIVATE).edit()
+                .putString("nav_query", navQuery.getText().toString().trim())
                 .apply();
     }
 

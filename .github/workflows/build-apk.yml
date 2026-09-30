@@ -1,4 +1,4 @@
-name: Build VF6 Launcher APKs
+name: Build VF6 Launcher APK
 
 on:
   push:
@@ -31,31 +31,23 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Build debug APKs
+      - name: Build debug APK
         run: |
           set -o pipefail
-          gradle :app:assembleDebug :driving:assembleDebug --stacktrace --no-daemon 2>&1 | tee build.log
+          gradle :app:assembleDebug --stacktrace --no-daemon 2>&1 | tee build.log
 
       - name: Upload main APK
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: VF6Launcher-v0.2-main-debug-apk
+          name: VF6Launcher-v0.3-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
-
-      - name: Upload driving APK
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: VF6Launcher-v0.2-driving-debug-apk
-          path: driving/build/outputs/apk/debug/driving-debug.apk
           if-no-files-found: error
 
       - name: Upload build log
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: VF6Launcher-v0.2-build-log
+          name: VF6Launcher-v0.3-build-log
           path: build.log
           if-no-files-found: ignore

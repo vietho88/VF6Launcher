@@ -3,10 +3,6 @@
 
     <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
 
-    <permission
-        android:name="com.vf6.launcher.permission.CONTROL"
-        android:protectionLevel="signature" />
-
     <queries>
         <intent>
             <action android:name="android.intent.action.MAIN" />
@@ -17,8 +13,17 @@
     <application
         android:allowBackup="true"
         android:appCategory="game"
+        android:icon="@drawable/ic_app"
         android:label="VF6 Launcher"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+
+        <meta-data
+            android:name="androidx.car.app.minCarApiLevel"
+            android:value="6" />
 
         <provider
             android:name="rikka.shizuku.ShizukuProvider"
@@ -51,12 +56,16 @@
 
         <receiver
             android:name=".bridge.CommandReceiver"
-            android:exported="true"
-            android:permission="com.vf6.launcher.permission.CONTROL">
+            android:exported="false" />
+
+        <service
+            android:name=".driving.car.DrivingCarAppService"
+            android:exported="true">
             <intent-filter>
-                <action android:name="com.vf6.launcher.action.COMMAND" />
+                <action android:name="androidx.car.app.CarAppService" />
+                <category android:name="androidx.car.app.category.IOT" />
             </intent-filter>
-        </receiver>
+        </service>
 
     </application>
 </manifest>

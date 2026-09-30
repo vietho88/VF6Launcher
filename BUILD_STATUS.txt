@@ -1,7 +1,5 @@
-VF6 Launcher v0.2 source generated.
-- Main parked split launcher retained.
-- Added signature-protected command receiver.
-- Added separate AndroidX Car App Library driving module.
-- Added navigation action, ratio/swap/session commands and global media keys.
-- GitHub Actions configured to build two APKs from one signing run.
-Not compiled end-to-end in this environment; GitHub Actions is the build validation step.
+VF6 Launcher v0.3 source updated for one APK.
+- Android Auto template service and parked split interface are in :app.
+- Driving destination is configured in the main phone activity.
+- GitHub Actions builds app-debug.apk only.
+- Build and on-car behavior still require validation.

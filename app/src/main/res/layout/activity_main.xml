@@ -94,6 +94,29 @@
             android:text="Ưu tiên mượt: 1280 × 720 / 220 dpi"
             android:textColor="@color/text" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Điểm đến nhanh trên Android Auto"
+            android:textColor="@color/text"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/nav_query"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ví dụ: Cầu Rồng Đà Nẵng"
+            android:inputType="text"
+            android:textColor="@color/text"
+            android:textColorHint="@color/muted" />
+
+        <Button
+            android:id="@+id/save_nav_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lưu điểm đến" />
+
         <Button
             android:id="@+id/start_button"
             android:layout_width="match_parent"

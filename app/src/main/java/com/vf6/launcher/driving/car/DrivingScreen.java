@@ -1,7 +1,6 @@
 package com.vf6.launcher.driving.car;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 
 import androidx.car.app.CarContext;
@@ -13,10 +12,10 @@ import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 
+import com.vf6.launcher.bridge.CommandReceiver;
+import com.vf6.launcher.session.SessionController;
+
 public final class DrivingScreen extends Screen {
-    private static final String TARGET_PACKAGE = "com.vf6.launcher";
-    private static final String ACTION_COMMAND = "com.vf6.launcher.action.COMMAND";
-    private static final String EXTRA_COMMAND = "command";
     private static final String PREFS = "driving";
     private static final String KEY_NAV_QUERY = "nav_query";
 
@@ -28,16 +27,10 @@ public final class DrivingScreen extends Screen {
 
     @Override
     public Template onGetTemplate() {
-        boolean installed = isMainInstalled();
         String destination = getCarContext().getSharedPreferences(PREFS, 0)
                 .getString(KEY_NAV_QUERY, "Cầu Rồng Đà Nẵng");
 
         ItemList.Builder items = new ItemList.Builder();
-
-        items.addItem(new Row.Builder()
-                .setTitle(installed ? "VF6 Launcher main: OK" : "VF6 Launcher main: chưa cài")
-                .addText(lastStatus)
-                .build());
 
         items.addItem(new Row.Builder()
                 .setTitle("Điều hướng Android Auto")
@@ -46,46 +39,15 @@ public final class DrivingScreen extends Screen {
                 .build());
 
         items.addItem(new Row.Builder()
-                .setTitle("Start / reconnect session")
-                .addText("Khởi tạo lại virtual session đã cấu hình trên điện thoại")
-                .setOnClickListener(() -> sendCommand("start", "START sent"))
+                .setTitle("Phiên ứng dụng")
+                .addText("Đã chọn trên điện thoại: " + configuredApps())
+                .setOnClickListener(() -> getScreenManager().push(new ControlsScreen(false)))
                 .build());
 
         items.addItem(new Row.Builder()
-                .setTitle("Đổi tỷ lệ split")
-                .addText("50/50 → 60/40 → 70/30")
-                .setOnClickListener(() -> sendCommand("ratio", "RATIO sent"))
-                .build());
-
-        items.addItem(new Row.Builder()
-                .setTitle("Swap left / right")
-                .addText("Đổi vị trí hai app trong session")
-                .setOnClickListener(() -> sendCommand("swap", "SWAP sent"))
-                .build());
-
-        items.addItem(new Row.Builder()
-                .setTitle("Media: Previous")
-                .setOnClickListener(() -> sendCommand("media_prev", "PREVIOUS sent"))
-                .build());
-
-        items.addItem(new Row.Builder()
-                .setTitle("Media: Play / Pause")
-                .setOnClickListener(() -> sendCommand("media_play_pause", "PLAY/PAUSE sent"))
-                .build());
-
-        items.addItem(new Row.Builder()
-                .setTitle("Media: Next")
-                .setOnClickListener(() -> sendCommand("media_next", "NEXT sent"))
-                .build());
-
-        items.addItem(new Row.Builder()
-                .setTitle("Stop virtual session")
-                .setOnClickListener(() -> sendCommand("stop", "STOP sent"))
-                .build());
-
-        items.addItem(new Row.Builder()
-                .setTitle("Driving mode")
-                .addText("Android Auto template + navigation/media controls. Full arbitrary-app surface remains parked-only.")
+                .setTitle("Điều khiển media")
+                .addText(lastStatus)
+                .setOnClickListener(() -> getScreenManager().push(new ControlsScreen(true)))
                 .build());
 
         return new ListTemplate.Builder()
@@ -95,12 +57,45 @@ public final class DrivingScreen extends Screen {
                 .build();
     }
 
-    private boolean isMainInstalled() {
-        try {
-            getCarContext().getPackageManager().getPackageInfo(TARGET_PACKAGE, 0);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
+    private String configuredApps() {
+        String left = SessionController.getLeft(getCarContext());
+        String right = SessionController.getRight(getCarContext());
+        return left == null || right == null ? "chưa chọn đủ 2 app" : "đã lưu";
+    }
+
+    private final class ControlsScreen extends Screen {
+        private final boolean media;
+
+        ControlsScreen(boolean media) {
+            super(DrivingScreen.this.getCarContext());
+            this.media = media;
+        }
+
+        @Override
+        public Template onGetTemplate() {
+            ItemList.Builder items = new ItemList.Builder();
+            if (media) {
+                items.addItem(commandRow("Bài trước", "media_prev", "PREVIOUS sent"));
+                items.addItem(commandRow("Phát / Tạm dừng", "media_play_pause", "PLAY/PAUSE sent"));
+                items.addItem(commandRow("Bài tiếp", "media_next", "NEXT sent"));
+            } else {
+                items.addItem(commandRow("Bắt đầu / Kết nối lại", "start", "START sent"));
+                items.addItem(commandRow("Đổi tỷ lệ split", "ratio", "RATIO sent"));
+                items.addItem(commandRow("Đổi trái / phải", "swap", "SWAP sent"));
+                items.addItem(commandRow("Dừng phiên", "stop", "STOP sent"));
+            }
+            return new ListTemplate.Builder()
+                    .setTitle(media ? "Media" : "Phiên ứng dụng")
+                    .setHeaderAction(Action.BACK)
+                    .setSingleList(items.build())
+                    .build();
+        }
+
+        private Row commandRow(String title, String command, String message) {
+            return new Row.Builder()
+                    .setTitle(title)
+                    .setOnClickListener(() -> sendCommand(command, message))
+                    .build();
         }
     }
 
@@ -119,9 +114,9 @@ public final class DrivingScreen extends Screen {
     }
 
     private void sendCommand(String command, String message) {
-        Intent i = new Intent(ACTION_COMMAND);
-        i.setPackage(TARGET_PACKAGE);
-        i.putExtra(EXTRA_COMMAND, command);
+        Intent i = new Intent(getCarContext(), CommandReceiver.class);
+        i.setAction(CommandReceiver.ACTION_COMMAND);
+        i.putExtra(CommandReceiver.EXTRA_COMMAND, command);
         try {
             getCarContext().sendBroadcast(i);
             lastStatus = message;

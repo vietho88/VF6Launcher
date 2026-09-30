@@ -7,8 +7,7 @@ import android.content.Intent;
 import com.vf6.launcher.session.SessionController;
 
 /**
- * Signature-protected bridge used by the separate Android Auto driving companion.
- * Both APKs must come from the same build/signing key.
+ * Internal command bridge used by the Android Auto screen in this APK.
  */
 public final class CommandReceiver extends BroadcastReceiver {
     public static final String ACTION_COMMAND = "com.vf6.launcher.action.COMMAND";

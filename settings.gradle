@@ -14,4 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = 'VF6Launcher'
 include ':app'
-include ':driving'

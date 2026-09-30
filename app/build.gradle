@@ -10,8 +10,8 @@ android {
         applicationId 'com.vf6.launcher'
         minSdk 29
         targetSdk 35
-        versionCode 3
-        versionName '0.2.0'
+        versionCode 4
+        versionName '0.3.0'
     }
 
     buildTypes {
@@ -36,4 +36,6 @@ dependencies {
     def shizuku_version = '13.1.5'
     implementation "dev.rikka.shizuku:api:$shizuku_version"
     implementation "dev.rikka.shizuku:provider:$shizuku_version"
+    implementation 'androidx.car.app:app:1.7.0'
+    implementation 'androidx.car.app:app-projected:1.7.0'
 }
